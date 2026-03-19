@@ -9,7 +9,7 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700;1,800&family=Cormorant+Garamond:ital,wght@1,600&family=Montserrat:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,700;0,800;1,700;1,800&family=Cormorant+Garamond:ital,wght@1,600&family=Montserrat:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap"
         rel="stylesheet">
 
     <script>
@@ -21,10 +21,11 @@
                         'brand-red': '#991B1B'
                     },
                     fontFamily: {
-                        'sans':    ['Montserrat', 'sans-serif'],
-                        'serif':   ['Playfair Display', 'serif'],
+                        'sans': ['Montserrat', 'sans-serif'],
+                        'serif': ['Playfair Display', 'serif'],
+                        'script': ['Great Vibes', 'cursive'],
                         'cursive': ['Cormorant Garamond', 'serif'],
-                        'mono':    ['JetBrains Mono', 'monospace']
+                        'mono': ['JetBrains Mono', 'monospace']
                     }
                 }
             }
@@ -41,7 +42,16 @@
 
         .heading-display {
             font-family: 'Playfair Display', serif;
-            text-shadow: 0 2px 24px rgba(153,27,27,0.08);
+            text-shadow: 0 2px 24px rgba(153, 27, 27, 0.08);
+        }
+
+        /* Tiêu đề uốn lượn: Great Vibes */
+        .heading-script {
+            font-family: 'Great Vibes', cursive;
+            font-weight: 400;
+            /* Great Vibes chỉ có 1 weight */
+            text-shadow: 0 2px 24px rgba(153, 27, 27, 0.1);
+            line-height: 1.1;
         }
 
         .quote-callout {
@@ -69,7 +79,7 @@
             justify-content: center;
             align-items: center;
             gap: 0.75rem;
-            box-shadow: 0 2px 8px rgba(153,27,27,0.3);
+            box-shadow: 0 2px 8px rgba(153, 27, 27, 0.3);
         }
 
         .stat-item {
@@ -83,7 +93,7 @@
             font-family: 'Playfair Display', serif;
             font-style: italic;
             font-size: 0.6rem;
-            color: rgba(255,255,255,0.7);
+            color: rgba(255, 255, 255, 0.7);
             letter-spacing: 0.04em;
             line-height: 1;
         }
@@ -99,7 +109,7 @@
         .stat-divider {
             width: 1px;
             height: 24px;
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.2);
         }
 
         /* ── Video wrapper ── */
@@ -120,8 +130,10 @@
         .video-wrapper iframe,
         .video-wrapper video {
             position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             border: none;
             border-radius: 1.5rem;
             object-fit: cover;
@@ -129,8 +141,10 @@
 
         .video-thumbnail {
             position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             border-radius: 1.5rem;
             object-fit: cover;
             z-index: 2;
@@ -141,19 +155,24 @@
 
         .play-btn {
             position: absolute;
-            top: 50%; left: 50%;
+            top: 50%;
+            left: 50%;
             transform: translate(-50%, -50%);
             z-index: 3;
-            width: 56px; height: 56px;
-            background: rgba(0,0,0,0.55);
+            width: 56px;
+            height: 56px;
+            background: rgba(0, 0, 0, 0.55);
             border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             transition: background 0.2s ease, transform 0.2s ease;
-            pointer-events: none; /* chỉ visual, click xử lý bởi wrapper */
+            pointer-events: none;
+            /* chỉ visual, click xử lý bởi wrapper */
         }
 
         .video-wrapper:not(.playing):hover .play-btn {
-            background: rgba(153,27,27,0.85);
+            background: rgba(153, 27, 27, 0.85);
             transform: translate(-50%, -50%) scale(1.1);
         }
 
@@ -168,17 +187,30 @@
         }
 
         @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to   { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        .category-header { position: relative; display: inline-block; }
+        .category-header {
+            position: relative;
+            display: inline-block;
+        }
+
         .category-header::after {
             content: '';
             position: absolute;
-            bottom: -8px; left: 50%;
+            bottom: -8px;
+            left: 50%;
             transform: translateX(-50%);
-            width: 60px; height: 3px;
+            width: 60px;
+            height: 3px;
             background: #991B1B;
             border-radius: 2px;
         }
@@ -190,24 +222,26 @@
             gap: 2rem;
         }
 
-        .videos-grid > * {
+        .videos-grid>* {
             width: 100%;
             max-width: 260px;
             flex: 0 0 auto;
         }
 
         @media (max-width: 640px) {
-            .videos-grid > * { max-width: 100%; }
+            .videos-grid>* {
+                max-width: 100%;
+            }
         }
 
         .btn-glow:hover {
-            box-shadow: 0 10px 25px -5px rgba(153,27,27,0.4);
+            box-shadow: 0 10px 25px -5px rgba(153, 27, 27, 0.4);
             transform: translateY(-2px);
             transition: all 0.3s ease;
         }
 
         .stat-card {
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.15), 0 4px 16px rgba(153,27,27,0.25);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 4px 16px rgba(153, 27, 27, 0.25);
         }
     </style>
 </head>
@@ -220,11 +254,12 @@
             <h1 class="text-sm font-bold tracking-[0.25em] text-neutral-800 uppercase font-sans">
                 NGOCMAI<span class="text-brand-red">.</span>
             </h1>
-            <div class="flex items-center space-x-8 text-[12px] font-bold uppercase tracking-widest text-neutral-500 font-sans">
-                <a href="#about"  class="hover:text-brand-red transition-colors duration-200">About</a>
-                <a href="#work"   class="hover:text-brand-red transition-colors duration-200">Work</a>
+            <div
+                class="flex items-center space-x-8 text-[12px] font-bold uppercase tracking-widest text-neutral-500 font-sans">
+                <a href="#about" class="hover:text-brand-red transition-colors duration-200">About</a>
+                <a href="#work" class="hover:text-brand-red transition-colors duration-200">Work</a>
                 <a href="#skills" class="hover:text-brand-red transition-colors duration-200">Skills</a>
-                <a href="mailto:ngocmaiatwork@gmail.com"
+                <a href="/cdn-cgi/l/email-protection#c8a6afa7aba5a9a1a9bcbfa7baa388afa5a9a1a4e6aba7a5"
                     class="px-6 py-2 bg-brand-red text-white rounded-full btn-glow transition shadow-md text-[12px] font-bold tracking-widest">
                     CONTACT
                 </a>
@@ -234,10 +269,10 @@
 
     <!-- HERO -->
     <header class="relative max-w-full text-center py-28 md:py-40 px-6 overflow-hidden">
-        <canvas id="particles-canvas" class="absolute inset-0 w-full h-full pointer-events-none" style="z-index:0;"></canvas>
+        <canvas id="particles-canvas" class="absolute inset-0 w-full h-full pointer-events-none"
+            style="z-index:0;"></canvas>
         <div class="relative max-w-5xl mx-auto" style="z-index:1;">
-            <h1 data-aos="fade-up"
-                class="heading-display italic text-6xl md:text-8xl font-bold text-brand-red leading-tight mb-6">
+            <h1 data-aos="fade-up" class="heading-script text-8xl md:text-[9rem] text-brand-red leading-tight mb-6">
                 Ngoc Mai Huynh
             </h1>
             <p data-aos="fade-up" data-aos-delay="100"
@@ -253,6 +288,10 @@
                     class="btn-glow inline-block px-8 py-3.5 bg-brand-red text-white text-xs font-bold tracking-widest uppercase rounded-xl shadow-lg transition font-sans">
                     View My Work
                 </a>
+                <a href="https://www.tiktok.com/@ngcmai__" target="_blank"
+                    class="btn-glow inline-block px-8 py-3.5 text-brand-red text-xs font-bold tracking-widest uppercase rounded-xl shadow-lg transition font-sans border-2 border-brand-red hover:bg-brand-red hover:text-white">
+                    My TikTok
+                </a>
             </div>
         </div>
     </header>
@@ -261,12 +300,12 @@
     <section id="about" class="py-24 bg-white border-y border-neutral-100">
         <div class="max-w-4xl mx-auto px-6 grid md:grid-cols-3 gap-16 items-center">
             <div class="md:col-span-1" data-aos="fade-right">
-                <img src="https://res.cloudinary.com/duj7ladnp/image/upload/v1773934900/image_2026-03-19_224136922_jdikkb.png"
-                     alt="Ngoc Mai Huynh"
-                     class="rounded-2xl shadow-2xl aspect-[3/4] object-cover border-8 border-brand-beige">
+                <img src="https://res.cloudinary.com/duj7ladnp/image/upload/v1773938967/IMG_3496_twj3pj.jpg"
+                    alt="Ngoc Mai Huynh"
+                    class="rounded-2xl shadow-2xl aspect-[3/4] object-cover border-8 border-brand-beige">
             </div>
             <div class="md:col-span-2 space-y-5" data-aos="fade-left">
-                <h2 class="heading-display italic text-5xl font-bold text-brand-red mb-8">About Me</h2>
+                <h2 class="heading-script text-6xl text-brand-red mb-8">About Me</h2>
                 <p class="text-base font-light leading-relaxed text-neutral-600">
                     I am a self-taught video editor with several years of experience creating short-form content.
                 </p>
@@ -284,7 +323,7 @@
     <!-- WORK -->
     <section id="work" class="py-24 px-6 bg-brand-beige">
         <div class="max-w-7xl mx-auto">
-            <h2 class="heading-display italic text-5xl font-bold text-brand-red text-center mb-16">
+            <h2 class="heading-script text-7xl text-brand-red text-center mb-16">
                 Feature Videos
             </h2>
             <div id="categories-container" class="space-y-32"></div>
@@ -296,46 +335,66 @@
         <div class="max-w-7xl mx-auto px-6">
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
 
-                <div class="bg-white p-10 rounded-[2.5rem] shadow-xl border border-neutral-100 flex flex-col min-h-[320px]">
-                    <h3 class="heading-display italic text-2xl font-bold text-brand-red mb-8">Editing Approach</h3>
+                <div
+                    class="bg-white p-10 rounded-[2.5rem] shadow-xl border border-neutral-100 flex flex-col min-h-[320px]">
+                    <h3 class="heading-script text-4xl text-brand-red mb-8">Editing Approach</h3>
                     <ul class="space-y-4 flex-grow flex flex-col justify-center">
                         <li class="flex items-start gap-3 text-sm font-medium text-neutral-700">
-                            <span class="mt-1.5 w-1.5 h-1.5 bg-brand-red rounded-full flex-shrink-0"></span>Focus on the first 3s hook
+                            <span class="mt-1.5 w-1.5 h-1.5 bg-brand-red rounded-full flex-shrink-0"></span>Focus on the
+                            first 3s hook
                         </li>
                         <li class="flex items-start gap-3 text-sm font-medium text-neutral-700">
-                            <span class="mt-1.5 w-1.5 h-1.5 bg-brand-red rounded-full flex-shrink-0"></span>Fast-paced &amp; easy to follow
+                            <span class="mt-1.5 w-1.5 h-1.5 bg-brand-red rounded-full flex-shrink-0"></span>Fast-paced
+                            &amp; easy to follow
                         </li>
                         <li class="flex items-start gap-3 text-sm font-medium text-neutral-700">
-                            <span class="mt-1.5 w-1.5 h-1.5 bg-brand-red rounded-full flex-shrink-0"></span>Subtitles &amp; sound enhancement
+                            <span class="mt-1.5 w-1.5 h-1.5 bg-brand-red rounded-full flex-shrink-0"></span>Subtitles
+                            &amp; sound enhancement
                         </li>
                         <li class="flex items-start gap-3 text-sm font-medium text-neutral-700">
-                            <span class="mt-1.5 w-1.5 h-1.5 bg-brand-red rounded-full flex-shrink-0"></span>Adapt style to trends
+                            <span class="mt-1.5 w-1.5 h-1.5 bg-brand-red rounded-full flex-shrink-0"></span>Adapt style
+                            to trends
                         </li>
                     </ul>
                 </div>
 
-                <div class="bg-white p-10 rounded-[2.5rem] shadow-xl border border-neutral-100 flex flex-col min-h-[320px]">
-                    <h3 class="heading-display italic text-2xl font-bold text-brand-red mb-8">Professional Skills</h3>
+                <div
+                    class="bg-white p-10 rounded-[2.5rem] shadow-xl border border-neutral-100 flex flex-col min-h-[320px]">
+                    <h3 class="heading-script text-4xl text-brand-red mb-8">Professional Skills</h3>
                     <div class="flex flex-wrap gap-3 flex-grow items-center content-center">
-                        <span class="px-5 py-2.5 bg-brand-beige border border-neutral-200 rounded-full text-[10px] font-bold uppercase tracking-widest text-neutral-800 transition-all hover:bg-brand-red hover:text-white cursor-default font-sans">CapCut Advanced</span>
-                        <span class="px-5 py-2.5 bg-brand-beige border border-neutral-200 rounded-full text-[10px] font-bold uppercase tracking-widest text-neutral-800 transition-all hover:bg-brand-red hover:text-white cursor-default font-sans">Short-form Edit</span>
-                        <span class="px-5 py-2.5 bg-brand-beige border border-neutral-200 rounded-full text-[10px] font-bold uppercase tracking-widest text-neutral-800 transition-all hover:bg-brand-red hover:text-white cursor-default font-sans">TikTok Trends</span>
-                        <span class="px-5 py-2.5 bg-brand-beige border border-neutral-200 rounded-full text-[10px] font-bold uppercase tracking-widest text-neutral-800 transition-all hover:bg-brand-red hover:text-white cursor-default font-sans">Storytelling</span>
-                        <span class="px-5 py-2.5 bg-brand-beige border border-neutral-200 rounded-full text-[10px] font-bold uppercase tracking-widest text-neutral-800 transition-all hover:bg-brand-red hover:text-white cursor-default font-sans">Ideation</span>
+                        <span
+                            class="px-5 py-2.5 bg-brand-beige border border-neutral-200 rounded-full text-[10px] font-bold uppercase tracking-widest text-neutral-800 transition-all hover:bg-brand-red hover:text-white cursor-default font-sans">CapCut
+                            Advanced</span>
+                        <span
+                            class="px-5 py-2.5 bg-brand-beige border border-neutral-200 rounded-full text-[10px] font-bold uppercase tracking-widest text-neutral-800 transition-all hover:bg-brand-red hover:text-white cursor-default font-sans">Short-form
+                            Edit</span>
+                        <span
+                            class="px-5 py-2.5 bg-brand-beige border border-neutral-200 rounded-full text-[10px] font-bold uppercase tracking-widest text-neutral-800 transition-all hover:bg-brand-red hover:text-white cursor-default font-sans">TikTok
+                            Trends</span>
+                        <span
+                            class="px-5 py-2.5 bg-brand-beige border border-neutral-200 rounded-full text-[10px] font-bold uppercase tracking-widest text-neutral-800 transition-all hover:bg-brand-red hover:text-white cursor-default font-sans">Storytelling</span>
+                        <span
+                            class="px-5 py-2.5 bg-brand-beige border border-neutral-200 rounded-full text-[10px] font-bold uppercase tracking-widest text-neutral-800 transition-all hover:bg-brand-red hover:text-white cursor-default font-sans">Ideation</span>
                     </div>
                 </div>
 
                 <div class="flex flex-col justify-between gap-4">
-                    <div class="stat-card flex-1 bg-brand-red p-6 rounded-[2rem] flex items-center justify-between transition-transform hover:scale-[1.03]">
-                        <span class="text-[9px] uppercase tracking-[0.2em] font-bold text-white/70 font-sans">Followers</span>
+                    <div
+                        class="stat-card flex-1 bg-brand-red p-6 rounded-[2rem] flex items-center justify-between transition-transform hover:scale-[1.03]">
+                        <span
+                            class="text-[11px] uppercase tracking-[0.2em] font-bold text-white/70 font-sans">Followers</span>
                         <span class="text-3xl font-mono font-bold text-white">4K+</span>
                     </div>
-                    <div class="stat-card flex-1 bg-brand-red p-6 rounded-[2rem] flex items-center justify-between transition-transform hover:scale-[1.03]">
-                        <span class="text-[9px] uppercase tracking-[0.2em] font-bold text-white/70 font-sans">Videos Posted</span>
+                    <div
+                        class="stat-card flex-1 bg-brand-red p-6 rounded-[2rem] flex items-center justify-between transition-transform hover:scale-[1.03]">
+                        <span class="text-[11px] uppercase tracking-[0.2em] font-bold text-white/70 font-sans">Videos
+                            Posted</span>
                         <span class="text-3xl font-mono font-bold text-white">50+</span>
                     </div>
-                    <div class="stat-card flex-1 bg-brand-red p-6 rounded-[2rem] flex items-center justify-between transition-transform hover:scale-[1.03]">
-                        <span class="text-[9px] uppercase tracking-[0.2em] font-bold text-white/70 font-sans">Highest Reach</span>
+                    <div
+                        class="stat-card flex-1 bg-brand-red p-6 rounded-[2rem] flex items-center justify-between transition-transform hover:scale-[1.03]">
+                        <span class="text-[11px] uppercase tracking-[0.2em] font-bold text-white/70 font-sans">Highest
+                            Reach</span>
                         <span class="text-3xl font-mono font-bold text-white">1.1M</span>
                     </div>
                 </div>
@@ -346,17 +405,22 @@
 
     <!-- FOOTER -->
     <footer class="bg-neutral-900 text-brand-beige py-12 px-6 text-center">
-        <h2 class="heading-display italic text-3xl mb-8">My Contact</h2>
-        <div class="flex flex-col md:flex-row justify-center items-center gap-6 text-[11px] font-bold uppercase tracking-[0.2em] opacity-80 font-sans">
-            <a href="mailto:ngocmaiatwork@gmail.com" class="hover:text-brand-red transition">ngocmaiatwork@gmail.com</a>
+        <h2 class="heading-script text-5xl mb-8">My Contact</h2>
+        <div
+            class="flex flex-col md:flex-row justify-center items-center gap-6 text-[11px] font-bold uppercase tracking-[0.2em] opacity-80 font-sans">
+            <a href="/cdn-cgi/l/email-protection#58363f373b353931392c2f372a33183f35393134763b3735"
+                class="hover:text-brand-red transition"><span class="__cf_email__"
+                    data-cfemail="59373e363a343830382d2e362b32193e34383035773a3634">[email&#160;protected]</span></a>
             <span class="hidden md:block opacity-20">/</span>
-            <a href="https://www.tiktok.com/@ngcmai__" target="_blank" class="hover:text-brand-red transition">@ngcmai</a>
+            <a href="https://www.tiktok.com/@ngcmai__" target="_blank"
+                class="hover:text-brand-red transition">@ngcmai</a>
             <span class="hidden md:block opacity-20">/</span>
             <span>0974994083</span>
         </div>
         <p class="mt-10 opacity-20 text-[8px] uppercase tracking-widest font-sans">&copy; 2026 Ngoc Mai Huynh</p>
     </footer>
 
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script>
         AOS.init({ duration: 1200, once: true, mirror: false, offset: 0 });
         const API_URL = 'https://sheetdb.io/api/v1/gc6oxtaogfpu6';
@@ -364,8 +428,8 @@
         function getLinkType(url) {
             if (!url) return 'unknown';
             if (url.includes('cloudinary.com')) return 'cloudinary';
-            if (url.includes('vimeo.com'))      return 'vimeo';
-            if (url.includes('youtu'))          return 'youtube';
+            if (url.includes('vimeo.com')) return 'vimeo';
+            if (url.includes('youtu')) return 'youtube';
             return 'unknown';
         }
 
@@ -382,13 +446,15 @@
             return `https://www.youtube.com/embed/${id}?controls=1&rel=0&modestbranding=1`;
         }
 
+        // Thumbnail tại giây 0.5 bằng so_0.5 — đơn giản và ổn định nhất
         function getCloudinaryThumbnail(videoUrl) {
             try {
                 const match = videoUrl.match(/\/video\/upload\/(?:v\d+\/)?(.+?)\.(mp4|mov|webm)/i);
                 if (!match) return '';
                 const publicId = match[1];
                 const cloudName = videoUrl.split('res.cloudinary.com/')[1].split('/')[0];
-                return `https://res.cloudinary.com/${cloudName}/video/upload/so_0.0000000000000001,w_600,q_auto/${publicId}.jpg`;
+                // so_0.5 = lấy frame tại đúng giây 0.5
+                return `https://res.cloudinary.com/${cloudName}/video/upload/so_0.00000000000001,w_600,q_auto/${publicId}.jpg`;
             } catch { return ''; }
         }
 
@@ -397,6 +463,7 @@
 
             if (type === 'cloudinary') {
                 const thumb = getCloudinaryThumbnail(url);
+                // Dùng data-url thay vì inline onclick để tránh escape issue
                 return `
                     <div class="video-wrapper shadow-xl" data-url="${url}">
                         <video
@@ -426,7 +493,9 @@
                 </div>`;
         }
 
-        document.addEventListener('click', function(e) {
+        // Event delegation: click vào wrapper khi chưa playing → load src + play
+        // Sau khi playing, click xử lý bởi native <video controls> tự nhiên
+        document.addEventListener('click', function (e) {
             const wrapper = e.target.closest('.video-wrapper[data-url]');
             if (!wrapper) return;
             if (wrapper.classList.contains('playing')) return;
@@ -435,13 +504,16 @@
             const url = wrapper.dataset.url;
             const video = wrapper.querySelector('video');
 
+            // Load src lần đầu và play từ giây 0
             video.src = url;
             video.currentTime = 0;
 
             video.play().then(() => {
                 wrapper.classList.add('playing');
+                // Bỏ cursor pointer sau khi đã play
                 wrapper.style.cursor = 'default';
             }).catch(() => {
+                // Autoplay bị chặn → vẫn hiện controls để user tự play
                 wrapper.classList.add('playing');
                 wrapper.style.cursor = 'default';
             });
@@ -474,9 +546,9 @@
                 const data = await response.json();
 
                 const categories = [
-                    { id: 'Viral',        title: 'Viral Videos'   },
-                    { id: 'Storytelling', title: 'Storytelling'    },
-                    { id: 'Branded',      title: 'Branded Content' }
+                    { id: 'Viral', title: 'Viral / High Engagement Videos' , sub:''},
+                    { id: 'Storytelling', title: 'Storytelling / Editing Style' , sub:'Focus on storytelling and retention.'},
+                    { id: 'Branded', title: 'Branded Content', sub:'Created branded content aligned with campaign messaging and audience targeting.'}
                 ];
 
                 container.innerHTML = '';
@@ -488,7 +560,8 @@
                     let sectionHtml = `
                         <div class="category-section">
                             <div class="mb-12 text-center">
-                                <h3 class="heading-display italic text-3xl font-bold text-neutral-900 category-header inline-block">${cat.title}</h3>
+                                <h3 class="heading-script text-5xl text-neutral-900 category-header inline-block">${cat.title}</h3>
+                                ${cat.sub ? `<p class="mt-6 text-sm font-light text-neutral-400 max-w-md mx-auto leading-relaxed">${cat.sub}</p>` : ''}
                             </div>
                             <div class="videos-grid">
                                 ${projects.map(item => `
@@ -523,7 +596,7 @@
             let particles = [], W, H;
 
             function resize() {
-                W = canvas.width  = canvas.offsetWidth;
+                W = canvas.width = canvas.offsetWidth;
                 H = canvas.height = canvas.offsetHeight;
             }
 
@@ -545,32 +618,6 @@
                 resize();
                 particles = Array.from({ length: 250 }, createParticle);
             }
-
-            function draw() {
-                ctx.clearRect(0, 0, W, H);
-                particles.forEach(p => {
-                    ctx.beginPath();
-                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-                    ctx.fillStyle = p.color + p.alpha + ')';
-                    ctx.fill();
-                    p.x += p.vx;
-                    p.y += p.vy;
-                    if (p.y < -5 || p.x < -5 || p.x > W + 5) {
-                        p.x = rand(0, W);
-                        p.y = H + 5;
-                    }
-                });
-                requestAnimationFrame(draw);
-            }
-
-            window.addEventListener('resize', resize);
-            init();
-            draw();
-        })();
-    </script>
-</body>
-
-</html>
 
             function draw() {
                 ctx.clearRect(0, 0, W, H);
