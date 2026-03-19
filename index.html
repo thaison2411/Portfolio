@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,235 +8,352 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=Montserrat:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
                         'brand-beige': '#F5F1E6',
-                        'brand-red': '#991B1B',
+                        'brand-red': '#991B1B'
                     },
                     fontFamily: {
-                        'sans': ['Inter', 'sans-serif'],
-                        'serif': ['Playfair Display', 'serif'],
+                        'sans': ['Montserrat', 'sans-serif'],
+                        'serif': ['Cormorant Garamond', 'serif'],
+                        'mono': ['JetBrains Mono', 'monospace']
                     }
                 }
             }
         }
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
-    <style>
-        body { background-color: #F5F1E6; color: #262626; scroll-behavior: smooth; overflow-x: hidden; }
-        
-        .loader {
-            border: 3px solid rgba(153, 27, 27, 0.1);
-            border-top: 3px solid #991B1B;
-            border-radius: 50%;
-            width: 30px; height: 30px;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
+    <style>
+        body {
+            background-color: #F5F1E6;
+            color: #1A1A1A;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        .hero-name { letter-spacing: -0.01em; }
+        .heading-display { text-shadow: 0 2px 24px rgba(153, 27, 27, 0.08); }
+
+        .card-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-weight: 600;
+            font-size: 1rem;
+            line-height: 1.4;
+        }
+
+        .quote-callout {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-weight: 600;
+            font-size: 1.35rem;
+            line-height: 1.6;
+            color: #404040;
+        }
+
+        /* Video wrapper dùng chung cho iframe và <video> */
         .video-wrapper {
             position: relative;
-            padding-bottom: 177.77%; /* 9:16 Aspect Ratio */
+            padding-bottom: 177.77%;
             height: 0;
             overflow: hidden;
             background: #000;
-            border-radius: 12px;
-            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .video-wrapper:hover {
-            transform: scale(1.03);
-            box-shadow: 0 20px 30px -10px rgba(153, 27, 27, 0.3);
-        }
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
+            border-radius: 1.5rem;
         }
 
-        .btn-glow {
+        .video-wrapper iframe,
+        .video-wrapper video {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            border: none;
+            border-radius: 1.5rem;
+            object-fit: cover;
+        }
+
+        .category-header { position: relative; display: inline-block; }
+        .category-header::after {
+            content: '';
+            position: absolute;
+            bottom: -8px; left: 50%;
+            transform: translateX(-50%);
+            width: 60px; height: 3px;
+            background: #991B1B;
+            border-radius: 2px;
+        }
+
+        .btn-glow:hover {
+            box-shadow: 0 10px 25px -5px rgba(153, 27, 27, 0.4);
+            transform: translateY(-2px);
             transition: all 0.3s ease;
         }
-        .btn-glow:hover {
-            box-shadow: 0 10px 20px -5px rgba(153, 27, 27, 0.4);
-            transform: translateY(-2px);
+
+        .stat-card {
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.15), 0 4px 16px rgba(153,27,27,0.25);
         }
     </style>
 </head>
+
 <body class="font-sans antialiased">
 
+    <!-- NAV -->
     <nav class="sticky top-0 z-50 bg-brand-beige/90 backdrop-blur-sm border-b border-neutral-200">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <h1 class="text-xl font-bold tracking-tighter text-neutral-800">
+            <h1 class="text-sm font-bold tracking-[0.25em] text-neutral-800 uppercase">
                 NGOCMAI<span class="text-brand-red">.</span>
             </h1>
-            <div class="flex items-center space-x-6 text-sm font-medium text-neutral-600">
-                <a href="#about" class="hover:text-brand-red transition">About Me</a>
-                <a href="#work" class="hover:text-brand-red transition">Featured Work</a>
-                <a href="#skills" class="hover:text-brand-red transition">Skills</a>
-                <a href="mailto:ngocmaiatwork@gmail.com" class="px-5 py-2 bg-brand-red text-white rounded-full hover:bg-red-900 btn-glow transition text-xs shadow-md">
-                    Contact
+            <div class="flex items-center space-x-8 text-[10px] font-bold uppercase tracking-widest text-neutral-500">
+                <a href="#about" class="hover:text-brand-red transition-colors duration-200">About</a>
+                <a href="#work" class="hover:text-brand-red transition-colors duration-200">Work</a>
+                <a href="#skills" class="hover:text-brand-red transition-colors duration-200">Skills</a>
+                <a href="mailto:ngocmaiatwork@gmail.com"
+                    class="px-6 py-2 bg-brand-red text-white rounded-full btn-glow transition shadow-md text-[10px] font-bold tracking-widest">
+                    CONTACT
                 </a>
             </div>
         </div>
     </nav>
 
-    <header class="max-w-5xl mx-auto text-center py-28 md:py-36 px-6">
-        <h1 data-aos="fade-up" class="font-serif text-5xl md:text-7xl font-bold text-brand-red leading-tight mb-6">
+    <!-- HERO -->
+    <header class="max-w-5xl mx-auto text-center py-28 md:py-40 px-6">
+        <h1 data-aos="fade-up"
+            class="hero-name heading-display font-serif italic text-6xl md:text-8xl font-bold text-brand-red leading-tight mb-6">
             Ngoc Mai Huynh
         </h1>
-        <p data-aos="fade-up" data-aos-delay="100" class="text-2xl md:text-3xl font-light text-neutral-700 mb-6 tracking-tight">
-            Video Editor & Content Creator
+        <p data-aos="fade-up" data-aos-delay="100"
+            class="text-xs md:text-sm font-bold text-neutral-500 mb-8 tracking-[0.25em] uppercase">
+            Video Editor &amp; Content Creator
         </p>
-        <p data-aos="fade-up" data-aos-delay="200" class="text-lg opacity-80 max-w-2xl mx-auto leading-relaxed text-neutral-600 mb-12">
-            Self-taught video editor with 4,000+ TikTok followers, specializing in short-form content and storytelling.
+        <p data-aos="fade-up" data-aos-delay="200" class="quote-callout max-w-xl mx-auto opacity-80">
+            "Self-taught video editor with 4,000+ TikTok followers,<br>
+            specializing in short-form content and storytelling."
         </p>
-        <div data-aos="fade-up" data-aos-delay="300">
-            <a href="#work" class="btn-glow inline-block px-8 py-3.5 bg-brand-red text-white font-semibold rounded-xl hover:bg-red-900 transition-all shadow-lg shadow-red-800/30">
+        <div class="mt-12 space-x-4" data-aos="fade-up" data-aos-delay="300">
+            <a href="#work"
+                class="btn-glow inline-block px-8 py-3.5 bg-brand-red text-white text-xs font-bold tracking-widest uppercase rounded-xl shadow-lg transition">
                 View My Work
             </a>
         </div>
     </header>
 
+    <!-- ABOUT -->
     <section id="about" class="py-24 bg-white border-y border-neutral-100">
-        <div class="max-w-4xl mx-auto px-6 grid md:grid-cols-3 gap-12 items-center">
+        <div class="max-w-4xl mx-auto px-6 grid md:grid-cols-3 gap-16 items-center">
             <div class="md:col-span-1" data-aos="fade-right">
-                <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?&w=400&q=80" alt="Ngoc Mai Huynh" class="rounded-2xl shadow-xl aspect-[3/4] object-cover border-4 border-brand-beige">
+                <img src="https://res.cloudinary.com/duj7ladnp/image/upload/v1773934900/image_2026-03-19_224136922_jdikkb.png" alt="Ngoc Mai Huynh"
+                    class="rounded-2xl shadow-2xl aspect-[3/4] object-cover border-8 border-brand-beige">
             </div>
-            <div class="md:col-span-2 space-y-6 text-lg leading-relaxed text-neutral-700" data-aos="fade-left">
-                <h2 class="font-serif text-4xl font-bold text-brand-red mb-8">About Me</h2>
-                <p>I am a self-taught video editor with several years of experience creating short-form content.</p>
-                <p>I manage a TikTok channel with nearly 4,000 followers, where I experiment with trends, storytelling, and editing styles to create engaging videos.</p>
-                <p class="font-semibold text-neutral-800">I enjoy turning simple ideas into content that keeps viewers watching.</p>
+            <div class="md:col-span-2 space-y-5" data-aos="fade-left">
+                <h2 class="heading-display font-serif italic text-5xl font-bold text-brand-red mb-8">About Me</h2>
+                <p class="text-base font-light leading-relaxed text-neutral-600">
+                    I am a self-taught video editor with several years of experience creating short-form content.
+                </p>
+                <p class="text-base font-light leading-relaxed text-neutral-600">
+                    I manage a TikTok channel with nearly 4,000 followers, where I experiment with trends,
+                    storytelling, and editing styles to create engaging videos.
+                </p>
+                <p class="quote-callout pt-4">
+                    I enjoy turning simple ideas into content that keeps viewers watching.
+                </p>
             </div>
         </div>
     </section>
 
-    <section id="work" class="py-28 px-6 bg-brand-beige">
+    <!-- WORK -->
+    <section id="work" class="py-24 px-6 bg-brand-beige">
         <div class="max-w-7xl mx-auto">
-            <h2 class="font-serif text-4xl font-bold text-brand-red text-center mb-6" data-aos="fade-down">Featured Videos</h2>
-            <p class="text-center text-neutral-600 mb-16 max-w-xl mx-auto" data-aos="fade-down" data-aos-delay="100">A curated selection of my viral hits, storytelling pieces, and branded content.</p>
-            
-            <div id="portfolio-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                </div>
+            <h2 class="heading-display font-serif italic text-5xl font-bold text-brand-red text-center mb-16">
+                Feature Videos
+            </h2>
+            <div id="categories-container" class="space-y-32"></div>
         </div>
     </section>
 
-    <section id="skills" class="py-24 bg-white border-t border-neutral-100">
-        <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-16">
-            <div class="bg-brand-beige/50 p-10 rounded-3xl border border-neutral-100" data-aos="fade-right">
-                <h3 class="font-serif text-3xl font-bold text-brand-red mb-10">My Skills</h3>
-                <div class="flex flex-wrap gap-3">
-                    <span class="px-5 py-2.5 bg-white border border-neutral-200 rounded-full text-sm font-medium text-neutral-800 shadow-sm">CapCut (Advanced)</span>
-                    <span class="px-5 py-2.5 bg-white border border-neutral-200 rounded-full text-sm font-medium text-neutral-800 shadow-sm">Short-form Editing</span>
-                    <span class="px-5 py-2.5 bg-white border border-neutral-200 rounded-full text-sm font-medium text-neutral-800 shadow-sm">TikTok Trends</span>
-                    <span class="px-5 py-2.5 bg-white border border-neutral-200 rounded-full text-sm font-medium text-neutral-800 shadow-sm">Storytelling</span>
-                    <span class="px-5 py-2.5 bg-white border border-neutral-200 rounded-full text-sm font-medium text-neutral-800 shadow-sm">Content Ideation</span>
+    <!-- SKILLS -->
+    <section id="skills" class="py-24 bg-brand-beige border-b border-neutral-200">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+
+                <div class="bg-white p-10 rounded-[2.5rem] shadow-xl border border-neutral-100 flex flex-col min-h-[320px]" data-aos="fade-right">
+                    <h3 class="font-serif italic text-2xl font-bold text-brand-red mb-8">Editing Approach</h3>
+                    <ul class="space-y-4 flex-grow flex flex-col justify-center">
+                        <li class="flex items-start gap-3 text-sm font-medium text-neutral-700">
+                            <span class="mt-1.5 w-1.5 h-1.5 bg-brand-red rounded-full flex-shrink-0"></span>Focus on the first 3s hook
+                        </li>
+                        <li class="flex items-start gap-3 text-sm font-medium text-neutral-700">
+                            <span class="mt-1.5 w-1.5 h-1.5 bg-brand-red rounded-full flex-shrink-0"></span>Fast-paced &amp; easy to follow
+                        </li>
+                        <li class="flex items-start gap-3 text-sm font-medium text-neutral-700">
+                            <span class="mt-1.5 w-1.5 h-1.5 bg-brand-red rounded-full flex-shrink-0"></span>Subtitles &amp; sound enhancement
+                        </li>
+                        <li class="flex items-start gap-3 text-sm font-medium text-neutral-700">
+                            <span class="mt-1.5 w-1.5 h-1.5 bg-brand-red rounded-full flex-shrink-0"></span>Adapt style to trends
+                        </li>
+                    </ul>
                 </div>
-            </div>
-            <div class="space-y-8" data-aos="fade-left">
-                <h3 class="font-serif text-3xl font-bold text-brand-red mb-10">Channel Stats</h3>
-                <div class="grid grid-cols-3 gap-6 text-center">
-                    <div class="p-6 bg-brand-red text-white rounded-2xl shadow-lg">
-                        <div class="text-4xl font-bold">4,000+</div>
-                        <div class="text-xs opacity-80 mt-1 uppercase tracking-wider">Followers</div>
-                    </div>
-                    <div class="p-6 bg-brand-red text-white rounded-2xl shadow-lg">
-                        <div class="text-4xl font-bold">50+</div>
-                        <div class="text-xs opacity-80 mt-1 uppercase tracking-wider">Videos Posted</div>
-                    </div>
-                    <div class="p-6 bg-brand-red text-white rounded-2xl shadow-lg">
-                        <div class="text-4xl font-bold">1.1M</div>
-                        <div class="text-xs opacity-80 mt-1 uppercase tracking-wider">Highest Views</div>
+
+                <div class="bg-white p-10 rounded-[2.5rem] shadow-xl border border-neutral-100 flex flex-col min-h-[320px]" data-aos="fade-up">
+                    <h3 class="font-serif italic text-2xl font-bold text-brand-red mb-8">Professional Skills</h3>
+                    <div class="flex flex-wrap gap-3 flex-grow items-center content-center">
+                        <span class="px-5 py-2.5 bg-brand-beige border border-neutral-200 rounded-full text-[10px] font-bold uppercase tracking-widest text-neutral-800 transition-all hover:bg-brand-red hover:text-white cursor-default">CapCut Advanced</span>
+                        <span class="px-5 py-2.5 bg-brand-beige border border-neutral-200 rounded-full text-[10px] font-bold uppercase tracking-widest text-neutral-800 transition-all hover:bg-brand-red hover:text-white cursor-default">Short-form Edit</span>
+                        <span class="px-5 py-2.5 bg-brand-beige border border-neutral-200 rounded-full text-[10px] font-bold uppercase tracking-widest text-neutral-800 transition-all hover:bg-brand-red hover:text-white cursor-default">TikTok Trends</span>
+                        <span class="px-5 py-2.5 bg-brand-beige border border-neutral-200 rounded-full text-[10px] font-bold uppercase tracking-widest text-neutral-800 transition-all hover:bg-brand-red hover:text-white cursor-default">Storytelling</span>
+                        <span class="px-5 py-2.5 bg-brand-beige border border-neutral-200 rounded-full text-[10px] font-bold uppercase tracking-widest text-neutral-800 transition-all hover:bg-brand-red hover:text-white cursor-default">Ideation</span>
                     </div>
                 </div>
+
+                <div class="flex flex-col justify-between gap-4" data-aos="fade-left">
+                    <div class="stat-card flex-1 bg-brand-red p-6 rounded-[2rem] flex items-center justify-between transition-transform hover:scale-[1.03]">
+                        <span class="text-[9px] uppercase tracking-[0.2em] font-bold text-white/70 font-sans">Followers</span>
+                        <span class="text-3xl font-mono font-bold text-white">4K+</span>
+                    </div>
+                    <div class="stat-card flex-1 bg-brand-red p-6 rounded-[2rem] flex items-center justify-between transition-transform hover:scale-[1.03]">
+                        <span class="text-[9px] uppercase tracking-[0.2em] font-bold text-white/70 font-sans">Videos Posted</span>
+                        <span class="text-3xl font-mono font-bold text-white">50+</span>
+                    </div>
+                    <div class="stat-card flex-1 bg-brand-red p-6 rounded-[2rem] flex items-center justify-between transition-transform hover:scale-[1.03]">
+                        <span class="text-[9px] uppercase tracking-[0.2em] font-bold text-white/70 font-sans">Highest Reach</span>
+                        <span class="text-3xl font-mono font-bold text-white">1.1M</span>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
-    <footer class="bg-neutral-900 text-brand-beige py-20 px-6 border-t border-neutral-800">
-        <div class="max-w-4xl mx-auto text-center" data-aos="zoom-in">
-            <h2 class="font-serif text-4xl font-bold mb-12">Let's Create Together</h2>
-            <div class="flex flex-col md:flex-row justify-center items-center gap-6 md:gap-12 text-lg font-light opacity-90">
-                <a href="mailto:ngocmaiatwork@gmail.com" class="hover:text-white transition">ngocmaiatwork@gmail.com</a>
-                <span class="hidden md:block">|</span>
-                <a href="https://www.tiktok.com/@ngcmai__?_r=1&_t=ZS-94oaUfarHz5" target="_blank" class="hover:text-white transition">TikTok: @ngcmai</a>
-                <span class="hidden md:block">|</span>
-                <span>0974 994 083</span>
-            </div>
-            <p class="text-sm opacity-40 mt-16 font-light">&copy; 2026 Ngoc Mai Huynh. Video Content Portfolio.</p>
+    <!-- FOOTER -->
+    <footer class="bg-neutral-900 text-brand-beige py-12 px-6 text-center">
+        <h2 class="font-serif italic text-3xl mb-8">My Contact</h2>
+        <div class="flex flex-col md:flex-row justify-center items-center gap-6 text-[11px] font-bold uppercase tracking-[0.2em] opacity-80">
+            <a href="mailto:ngocmaiatwork@gmail.com" class="hover:text-brand-red transition">ngocmaiatwork@gmail.com</a>
+            <span class="hidden md:block opacity-20">/</span>
+            <a href="https://www.tiktok.com/@ngcmai__" target="_blank" class="hover:text-brand-red transition">@ngcmai</a>
+            <span class="hidden md:block opacity-20">/</span>
+            <span>0974994083</span>
         </div>
+        <p class="mt-10 opacity-20 text-[8px] uppercase tracking-widest">&copy; 2026 Ngoc Mai Huynh</p>
     </footer>
 
     <script>
-        // Initialize Animations
-        AOS.init({ duration: 1000, once: true });
-
+        AOS.init({ duration: 1200, once: true });
         const API_URL = 'https://sheetdb.io/api/v1/gc6oxtaogfpu6';
 
+        // Nhận diện platform từ URL
+        function getLinkType(url) {
+            if (!url) return 'unknown';
+            if (url.includes('cloudinary.com')) return 'cloudinary';
+            if (url.includes('vimeo.com'))      return 'vimeo';
+            if (url.includes('youtu'))          return 'youtube';
+            return 'unknown';
+        }
+
+        // Chuyển link Vimeo / YouTube sang embed URL
         function formatEmbedUrl(url) {
-            if (!url) return '';
-            if (url.includes('youtube.com') || url.includes('youtu.be')) {
-                let id = '';
-                if (url.includes('shorts/')) id = url.split('shorts/')[1].split('?')[0];
-                else if (url.includes('v=')) id = url.split('v=')[1].split('&')[0];
-                else if (url.includes('youtu.be/')) id = url.split('youtu.be/')[1];
-                return `https://www.youtube.com/embed/${id}?controls=1&rel=0&modestbranding=1&iv_load_policy=3&showinfo=0`;
+            if (url.includes('player.vimeo.com')) {
+                return url.split('?')[0] + '?badge=0&autopause=0&player_id=0';
             }
-            return url;
+            if (url.includes('vimeo.com')) {
+                const id = url.split('vimeo.com/')[1].split('?')[0].split('/')[0];
+                return `https://player.vimeo.com/video/${id}?badge=0&autopause=0&player_id=0`;
+            }
+            // YouTube
+            const id = url.includes('shorts/')
+                ? url.split('shorts/')[1].split('?')[0]
+                : (url.includes('v=')
+                    ? url.split('v=')[1].split('&')[0]
+                    : url.split('/').pop());
+            return `https://www.youtube.com/embed/${id}?controls=1&rel=0&modestbranding=1`;
+        }
+
+        // Trả về HTML element đúng loại
+        function buildVideoElement(url) {
+            const type = getLinkType(url);
+
+            if (type === 'cloudinary') {
+                // Cloudinary → thẻ <video> native, không có logo hay title
+                return `<video
+                    src="${url}"
+                    controls
+                    preload="metadata"
+                    playsinline
+                    style="position:absolute;top:0;left:0;width:100%;height:100%;
+                           border:none;border-radius:1.5rem;object-fit:cover;background:#000;">
+                </video>`;
+            }
+
+            // Vimeo / YouTube → iframe
+            return `<iframe
+                src="${formatEmbedUrl(url)}"
+                allowfullscreen
+                loading="lazy"
+                allow="autoplay; fullscreen; picture-in-picture">
+            </iframe>`;
         }
 
         async function renderPortfolio() {
-            const grid = document.getElementById('portfolio-grid');
+            const container = document.getElementById('categories-container');
             try {
                 const response = await fetch(API_URL);
-                const projects = await response.json();
+                const data = await response.json();
 
-                if (!projects || projects.length === 0) {
-                    grid.innerHTML = '<p class="col-span-full text-center opacity-50">No video data found.</p>';
-                    return;
-                }
+                const categories = [
+                    { id: 'Viral',        title: 'Viral Videos'   },
+                    { id: 'Storytelling', title: 'Storytelling'    },
+                    { id: 'Branded',      title: 'Branded Content' }
+                ];
 
-                grid.innerHTML = ''; 
+                container.innerHTML = '';
 
-                projects.forEach((item, index) => {
-                    const title = item.Title || 'Untitled';
-                    const desc = item.Description || '';
-                    const youtubeLink = formatEmbedUrl(item.Link);
-                    const tiktokRedirect = item['Link tiktok'] || '#';
+                categories.forEach(cat => {
+                    const projects = data.filter(p => p.Category && p.Category.trim() === cat.id);
+                    if (projects.length === 0) return;
 
-                    const cardHtml = `
-                        <div class="bg-white p-5 rounded-2xl shadow-sm border border-neutral-100 flex flex-col hover:shadow-xl transition-all duration-300" data-aos="fade-up" data-aos-delay="${index * 100}">
-                            <div class="mb-5">
-                                <div class="video-wrapper shadow-xl">
-                                    <iframe src="${youtubeLink}" frameborder="0" allowfullscreen loading="lazy"></iframe>
-                                </div>
+                    let sectionHtml = `
+                        <div class="category-section" data-aos="fade-up">
+                            <div class="mb-12 text-center">
+                                <h3 class="font-serif italic text-3xl font-bold text-neutral-900 category-header inline-block">${cat.title}</h3>
                             </div>
-                            <div class="flex-grow flex flex-col justify-between">
-                                <a href="${tiktokRedirect}" target="_blank" class="block group/title">
-                                    <h3 class="text-lg font-semibold text-neutral-800 leading-snug mb-2 group-hover/title:text-brand-red transition flex items-center gap-2">
-                                        ${title}
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 opacity-0 group-hover/title:opacity-100 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                                        </svg>
-                                    </h3>
-                                </a>
-                                <div class="text-[11px] text-brand-red opacity-80 font-mono tracking-tight bg-brand-beige/50 px-3 py-2 rounded-lg inline-block w-full text-center uppercase font-bold">
-                                    ${desc}
-                                </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                                ${projects.map(item => `
+                                    <div class="bg-white p-4 rounded-[2rem] shadow-sm border border-neutral-100 flex flex-col hover:shadow-xl transition-all duration-500">
+                                        <div class="mb-4 video-wrapper shadow-xl">
+                                            ${buildVideoElement(item.Link)}
+                                        </div>
+                                        <div class="flex-grow flex flex-col">
+                                            <a href="${item['Link tiktok'] || '#'}" target="_blank"
+                                               class="block mb-4 min-h-[50px] flex items-center justify-center text-center group">
+                                                <h2 class="card-title text-neutral-800 group-hover:text-brand-red transition-colors">${item.Title || 'Untitled'}</h2>
+                                            </a>
+                                            <div class="mt-auto w-full bg-brand-red py-3 px-2 rounded-xl flex flex-col items-center justify-center text-center shadow-lg">
+                                                <p class="text-[9px] tracking-[0.08em] text-white/80 font-sans font-bold uppercase leading-relaxed">
+                                                    Views:&nbsp;<span class="font-mono font-bold text-white text-xs">${item.Views || '0'}</span>
+                                                    <span class="mx-1 opacity-40">·</span>
+                                                    Likes:&nbsp;<span class="font-mono font-bold text-white text-xs">${item.Likes || '0'}</span>
+                                                    <br>
+                                                    Shares:&nbsp;<span class="font-mono font-bold text-white text-xs">${item.Shares || '0'}</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `).join('')}
                             </div>
                         </div>
                     `;
-                    grid.innerHTML += cardHtml;
+                    container.innerHTML += sectionHtml;
                 });
-            } catch (error) {
-                console.error("Error:", error);
-                grid.innerHTML = `<p class="col-span-full text-center py-20 text-brand-red">Error loading Google Sheets data.</p>`;
-            }
+            } catch (e) { console.error(e); }
         }
+
         document.addEventListener('DOMContentLoaded', renderPortfolio);
     </script>
 </body>
+
 </html>
