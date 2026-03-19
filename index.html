@@ -8,12 +8,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <!--
-        FONTS:
-        - Headings/Display : Playfair Display Italic → bay bổng, sang trọng hơn Cormorant
-        - Body/Labels      : Montserrat
-        - Numbers          : JetBrains Mono
-    -->
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700;1,800&family=Cormorant+Garamond:ital,wght@1,600&family=Montserrat:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap"
         rel="stylesheet">
@@ -45,13 +39,11 @@
             overflow-x: hidden;
         }
 
-        /* ── Display headings: Playfair Display ── */
         .heading-display {
             font-family: 'Playfair Display', serif;
             text-shadow: 0 2px 24px rgba(153,27,27,0.08);
         }
 
-        /* ── Quote / callout: Cormorant Garamond italic ── */
         .quote-callout {
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
@@ -61,13 +53,53 @@
             color: #404040;
         }
 
-        /* ── Card title ── */
         .card-title {
             font-family: 'Playfair Display', serif;
             font-style: italic;
             font-weight: 700;
             font-size: 0.95rem;
             line-height: 1.4;
+        }
+
+        .stats-bar {
+            background: #991B1B;
+            border-radius: 0.75rem;
+            padding: 0.6rem 0.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.75rem;
+            box-shadow: 0 2px 8px rgba(153,27,27,0.3);
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1px;
+        }
+
+        .stat-label {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 0.6rem;
+            color: rgba(255,255,255,0.7);
+            letter-spacing: 0.04em;
+            line-height: 1;
+        }
+
+        .stat-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 0.8rem;
+            color: #fff;
+            line-height: 1;
+        }
+
+        .stat-divider {
+            width: 1px;
+            height: 24px;
+            background: rgba(255,255,255,0.2);
         }
 
         /* ── Video wrapper ── */
@@ -78,6 +110,10 @@
             overflow: hidden;
             background: #111;
             border-radius: 1.5rem;
+        }
+
+        /* Khi chưa play: cursor pointer để gợi ý click vào thumbnail/play-btn */
+        .video-wrapper:not(.playing) {
             cursor: pointer;
         }
 
@@ -91,7 +127,6 @@
             object-fit: cover;
         }
 
-        /* Thumbnail overlay */
         .video-thumbnail {
             position: absolute;
             top: 0; left: 0;
@@ -100,6 +135,8 @@
             object-fit: cover;
             z-index: 2;
             transition: opacity 0.3s ease;
+            /* Thumbnail không chặn click sau khi playing */
+            pointer-events: none;
         }
 
         .play-btn {
@@ -112,22 +149,20 @@
             border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
             transition: background 0.2s ease, transform 0.2s ease;
-            pointer-events: none;
+            pointer-events: none; /* chỉ visual, click xử lý bởi wrapper */
         }
 
-        .video-wrapper:hover .play-btn {
+        .video-wrapper:not(.playing):hover .play-btn {
             background: rgba(153,27,27,0.85);
             transform: translate(-50%, -50%) scale(1.1);
         }
 
-        /* Khi đã click → ẩn thumbnail + play btn */
+        /* Khi đã playing: ẩn thumbnail + play btn */
         .video-wrapper.playing .video-thumbnail,
         .video-wrapper.playing .play-btn {
             opacity: 0;
-            pointer-events: none;
         }
 
-        /* ── Category section ── */
         .category-section {
             animation: fadeUp 0.7s ease forwards;
         }
@@ -137,7 +172,6 @@
             to   { opacity: 1; transform: translateY(0); }
         }
 
-        /* Category header underline */
         .category-header { position: relative; display: inline-block; }
         .category-header::after {
             content: '';
@@ -149,7 +183,6 @@
             border-radius: 2px;
         }
 
-        /* ── Grid căn giữa khi ít card ── */
         .videos-grid {
             display: flex;
             flex-wrap: wrap;
@@ -200,24 +233,27 @@
     </nav>
 
     <!-- HERO -->
-    <header class="max-w-5xl mx-auto text-center py-28 md:py-40 px-6">
-        <h1 data-aos="fade-up"
-            class="heading-display italic text-6xl md:text-8xl font-bold text-brand-red leading-tight mb-6">
-            Ngoc Mai Huynh
-        </h1>
-        <p data-aos="fade-up" data-aos-delay="100"
-            class="text-xs md:text-sm font-bold text-neutral-500 mb-8 tracking-[0.25em] uppercase font-sans">
-            Video Editor &amp; Content Creator
-        </p>
-        <p data-aos="fade-up" data-aos-delay="200" class="quote-callout max-w-xl mx-auto opacity-80">
-            "Self-taught video editor with 4,000+ TikTok followers,<br>
-            specializing in short-form content and storytelling."
-        </p>
-        <div class="mt-12" data-aos="fade-up" data-aos-delay="300">
-            <a href="#work"
-                class="btn-glow inline-block px-8 py-3.5 bg-brand-red text-white text-xs font-bold tracking-widest uppercase rounded-xl shadow-lg transition font-sans">
-                View My Work
-            </a>
+    <header class="relative max-w-full text-center py-28 md:py-40 px-6 overflow-hidden">
+        <canvas id="particles-canvas" class="absolute inset-0 w-full h-full pointer-events-none" style="z-index:0;"></canvas>
+        <div class="relative max-w-5xl mx-auto" style="z-index:1;">
+            <h1 data-aos="fade-up"
+                class="heading-display italic text-6xl md:text-8xl font-bold text-brand-red leading-tight mb-6">
+                Ngoc Mai Huynh
+            </h1>
+            <p data-aos="fade-up" data-aos-delay="100"
+                class="text-xs md:text-sm font-bold text-neutral-500 mb-8 tracking-[0.25em] uppercase font-sans">
+                Video Editor &amp; Content Creator
+            </p>
+            <p data-aos="fade-up" data-aos-delay="200" class="quote-callout max-w-xl mx-auto opacity-80">
+                "Self-taught video editor with 4,000+ TikTok followers,<br>
+                specializing in short-form content and storytelling."
+            </p>
+            <div class="mt-12" data-aos="fade-up" data-aos-delay="300">
+                <a href="#work"
+                    class="btn-glow inline-block px-8 py-3.5 bg-brand-red text-white text-xs font-bold tracking-widest uppercase rounded-xl shadow-lg transition font-sans">
+                    View My Work
+                </a>
+            </div>
         </div>
     </header>
 
@@ -310,7 +346,7 @@
 
     <!-- FOOTER -->
     <footer class="bg-neutral-900 text-brand-beige py-12 px-6 text-center">
-        <h2 class="heading-display italic text-3xl mb-8">Let's Create Together</h2>
+        <h2 class="heading-display italic text-3xl mb-8">My Contact</h2>
         <div class="flex flex-col md:flex-row justify-center items-center gap-6 text-[11px] font-bold uppercase tracking-[0.2em] opacity-80 font-sans">
             <a href="mailto:ngocmaiatwork@gmail.com" class="hover:text-brand-red transition">ngocmaiatwork@gmail.com</a>
             <span class="hidden md:block opacity-20">/</span>
@@ -346,16 +382,15 @@
             return `https://www.youtube.com/embed/${id}?controls=1&rel=0&modestbranding=1`;
         }
 
-        /*
-         * Cloudinary tự tạo thumbnail từ video bằng cách:
-         * đổi /video/upload/ → /video/upload/so_0/ và đuôi .mp4 → .jpg
-         * so_0 = lấy frame tại giây 0 (frame đầu tiên)
-         */
+        // Thumbnail tại giây 0.5 bằng so_0.5 — đơn giản và ổn định nhất
         function getCloudinaryThumbnail(videoUrl) {
             try {
-                return videoUrl
-                    .replace('/video/upload/', '/video/upload/so_1/')
-                    .replace(/\.(mp4|mov|webm)(\?.*)?$/, '.jpg');
+                const match = videoUrl.match(/\/video\/upload\/(?:v\d+\/)?(.+?)\.(mp4|mov|webm)/i);
+                if (!match) return '';
+                const publicId = match[1];
+                const cloudName = videoUrl.split('res.cloudinary.com/')[1].split('/')[0];
+                // so_0.0000000001 = lấy frame tại đúng giây 0.0000000000000001
+                return `https://res.cloudinary.com/${cloudName}/video/upload/so_0.0000000000000001,w_600,q_auto/${publicId}.jpg`;
             } catch { return ''; }
         }
 
@@ -364,17 +399,17 @@
 
             if (type === 'cloudinary') {
                 const thumb = getCloudinaryThumbnail(url);
+                // Dùng data-url thay vì inline onclick để tránh escape issue
                 return `
-                    <div class="video-wrapper shadow-xl" onclick="playCloudinary(this, '${url}')">
+                    <div class="video-wrapper shadow-xl" data-url="${url}">
                         <video
-                            src="${url}"
                             preload="none"
                             playsinline
+                            controls
                             style="position:absolute;top:0;left:0;width:100%;height:100%;
                                    border:none;border-radius:1.5rem;object-fit:cover;background:#000;">
                         </video>
-                        <img class="video-thumbnail" src="${thumb}" alt="thumbnail"
-                             onerror="this.style.display='none'">
+                        ${thumb ? `<img class="video-thumbnail" src="${thumb}" alt="thumbnail" onerror="this.style.display='none'">` : ''}
                         <div class="play-btn">
                             <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
                                 <path d="M8 5v14l11-7z"/>
@@ -383,7 +418,6 @@
                     </div>`;
             }
 
-            // Vimeo / YouTube → iframe (load lazy, thumbnail handled by platform)
             return `
                 <div class="video-wrapper shadow-xl">
                     <iframe
@@ -395,13 +429,50 @@
                 </div>`;
         }
 
-        // Click vào card Cloudinary → ẩn thumbnail, play video
-        function playCloudinary(wrapper, url) {
+        // Event delegation: click vào wrapper khi chưa playing → load src + play
+        // Sau khi playing, click xử lý bởi native <video controls> tự nhiên
+        document.addEventListener('click', function(e) {
+            const wrapper = e.target.closest('.video-wrapper[data-url]');
+            if (!wrapper) return;
             if (wrapper.classList.contains('playing')) return;
-            wrapper.classList.add('playing');
+
+            e.stopPropagation();
+            const url = wrapper.dataset.url;
             const video = wrapper.querySelector('video');
-            video.src = url; // đảm bảo src được load
-            video.play();
+
+            // Load src lần đầu và play từ giây 0
+            video.src = url;
+            video.currentTime = 0;
+
+            video.play().then(() => {
+                wrapper.classList.add('playing');
+                // Bỏ cursor pointer sau khi đã play
+                wrapper.style.cursor = 'default';
+            }).catch(() => {
+                // Autoplay bị chặn → vẫn hiện controls để user tự play
+                wrapper.classList.add('playing');
+                wrapper.style.cursor = 'default';
+            });
+        });
+
+        function buildStatsBar(views, likes, shares) {
+            return `
+                <div class="stats-bar mt-auto">
+                    <div class="stat-item">
+                        <span class="stat-label">Views</span>
+                        <span class="stat-value">${views || '0'}</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <span class="stat-label">Likes</span>
+                        <span class="stat-value">${likes || '0'}</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <span class="stat-label">Shares</span>
+                        <span class="stat-value">${shares || '0'}</span>
+                    </div>
+                </div>`;
         }
 
         async function renderPortfolio() {
@@ -435,18 +506,10 @@
                                         </div>
                                         <div class="flex-grow flex flex-col">
                                             <a href="${item['Link tiktok'] || '#'}" target="_blank"
-                                               class="block mb-4 min-h-[50px] flex items-center justify-center text-center group">
+                                               class="block mb-3 min-h-[50px] flex items-center justify-center text-center group">
                                                 <h2 class="card-title text-neutral-800 group-hover:text-brand-red transition-colors">${item.Title || 'Untitled'}</h2>
                                             </a>
-                                            <div class="mt-auto w-full bg-brand-red py-3 px-2 rounded-xl flex flex-col items-center justify-center text-center shadow-lg">
-                                                <p class="text-[9px] tracking-[0.08em] text-white/80 font-sans font-bold uppercase leading-relaxed">
-                                                    Views:&nbsp;<span class="font-mono font-bold text-white text-xs">${item.Views || '0'}</span>
-                                                    <span class="mx-1 opacity-40">·</span>
-                                                    Likes:&nbsp;<span class="font-mono font-bold text-white text-xs">${item.Likes || '0'}</span>
-                                                    <br>
-                                                    Shares:&nbsp;<span class="font-mono font-bold text-white text-xs">${item.Shares || '0'}</span>
-                                                </p>
-                                            </div>
+                                            ${buildStatsBar(item.Views, item.Likes, item.Shares)}
                                         </div>
                                     </div>
                                 `).join('')}
@@ -459,6 +522,85 @@
         }
 
         document.addEventListener('DOMContentLoaded', renderPortfolio);
+
+        // ── Particles ──
+        (function () {
+            const canvas = document.getElementById('particles-canvas');
+            const ctx = canvas.getContext('2d');
+            const COLORS = ['rgba(153,27,27,', 'rgba(180,120,60,', 'rgba(200,160,80,'];
+            let particles = [], W, H;
+
+            function resize() {
+                W = canvas.width  = canvas.offsetWidth;
+                H = canvas.height = canvas.offsetHeight;
+            }
+
+            function rand(min, max) { return Math.random() * (max - min) + min; }
+
+            function createParticle() {
+                const color = COLORS[Math.floor(Math.random() * COLORS.length)];
+                return {
+                    x: rand(0, W), y: rand(0, H),
+                    r: rand(1.2, 3.2),
+                    alpha: rand(0.08, 0.28),
+                    vx: rand(-0.18, 0.18),
+                    vy: rand(-0.28, -0.08),
+                    color
+                };
+            }
+
+            function init() {
+                resize();
+                particles = Array.from({ length: 55 }, createParticle);
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, W, H);
+                particles.forEach(p => {
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    ctx.fillStyle = p.color + p.alpha + ')';
+                    ctx.fill();
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    if (p.y < -5 || p.x < -5 || p.x > W + 5) {
+                        p.x = rand(0, W);
+                        p.y = H + 5;
+                    }
+                });
+                requestAnimationFrame(draw);
+            }
+
+            window.addEventListener('resize', resize);
+            init();
+            draw();
+        })();
+    </script>
+</body>
+
+</html>
+
+            function draw() {
+                ctx.clearRect(0, 0, W, H);
+                particles.forEach(p => {
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    ctx.fillStyle = p.color + p.alpha + ')';
+                    ctx.fill();
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    if (p.y < -5 || p.x < -5 || p.x > W + 5) {
+                        p.x = rand(0, W);
+                        p.y = H + 5;
+                    }
+                });
+                requestAnimationFrame(draw);
+            }
+
+            window.addEventListener('resize', resize);
+            init();
+            draw();
+        })();
     </script>
 </body>
 
