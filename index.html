@@ -382,14 +382,12 @@
             return `https://www.youtube.com/embed/${id}?controls=1&rel=0&modestbranding=1`;
         }
 
-        // Thumbnail tại giây 0.5 bằng so_0.5 — đơn giản và ổn định nhất
         function getCloudinaryThumbnail(videoUrl) {
             try {
                 const match = videoUrl.match(/\/video\/upload\/(?:v\d+\/)?(.+?)\.(mp4|mov|webm)/i);
                 if (!match) return '';
                 const publicId = match[1];
                 const cloudName = videoUrl.split('res.cloudinary.com/')[1].split('/')[0];
-                // so_0.0000000001 = lấy frame tại đúng giây 0.0000000000000001
                 return `https://res.cloudinary.com/${cloudName}/video/upload/so_0.0000000000000001,w_600,q_auto/${publicId}.jpg`;
             } catch { return ''; }
         }
@@ -399,7 +397,6 @@
 
             if (type === 'cloudinary') {
                 const thumb = getCloudinaryThumbnail(url);
-                // Dùng data-url thay vì inline onclick để tránh escape issue
                 return `
                     <div class="video-wrapper shadow-xl" data-url="${url}">
                         <video
@@ -429,8 +426,6 @@
                 </div>`;
         }
 
-        // Event delegation: click vào wrapper khi chưa playing → load src + play
-        // Sau khi playing, click xử lý bởi native <video controls> tự nhiên
         document.addEventListener('click', function(e) {
             const wrapper = e.target.closest('.video-wrapper[data-url]');
             if (!wrapper) return;
@@ -440,16 +435,13 @@
             const url = wrapper.dataset.url;
             const video = wrapper.querySelector('video');
 
-            // Load src lần đầu và play từ giây 0
             video.src = url;
             video.currentTime = 0;
 
             video.play().then(() => {
                 wrapper.classList.add('playing');
-                // Bỏ cursor pointer sau khi đã play
                 wrapper.style.cursor = 'default';
             }).catch(() => {
-                // Autoplay bị chặn → vẫn hiện controls để user tự play
                 wrapper.classList.add('playing');
                 wrapper.style.cursor = 'default';
             });
@@ -551,7 +543,7 @@
 
             function init() {
                 resize();
-                particles = Array.from({ length: 55 }, createParticle);
+                particles = Array.from({ length: 250 }, createParticle);
             }
 
             function draw() {
