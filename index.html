@@ -520,6 +520,14 @@
         });
 
         function buildStatsBar(views, likes, shares) {
+            const v = (views && views !== '0') ? views : null;
+            const l = (likes && likes !== '0') ? likes : null;
+            const s = (shares && shares !== '0') ? shares : null;
+
+            if (!v && !l && !s) {
+                return ''; // Ẩn phần thanh stats
+            }
+
             return `
                 <div class="stats-bar mt-auto">
                     <div class="stat-item">
@@ -616,7 +624,7 @@
 
             function init() {
                 resize();
-                particles = Array.from({ length: 250 }, createParticle);
+                particles = Array.from({ length: 700 }, createParticle);
             }
 
             function draw() {
